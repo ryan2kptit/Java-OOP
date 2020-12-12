@@ -5,10 +5,21 @@
  */
 package fileIO;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 /**
  *
  * @author dong
  */
 public class FileIO {
-    
+    public static void writeToFile(ArrayList listObj, String file){
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        try {
+             
+        } catch (Exception e) {
+        }
+    }
 }
