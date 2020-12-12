@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Book implements Serializable{
     private static int currentId = 9999;
     private int id;
-    private String  bookName, bookAuthor, bookYear, bookMajor;
+    private String  bookName, bookAuthor, bookMajor, bookYear;
     private int bookAmount;
     
     public Book(){
@@ -22,7 +22,7 @@ public class Book implements Serializable{
     }
 
     public Book(int id, String bookName, String bookAuthor, String bookYear, String bookMajor, int bookAmount) {
-        this.id = id;
+        this.id = ++currentId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookYear = bookYear;
@@ -36,6 +36,10 @@ public class Book implements Serializable{
 
     public static void setCurrentId(int currentId) {
         Book.currentId = currentId;
+    }
+
+    public Book(String bookName, String bookAuthor, String bookMajor, String bookYear, int amount) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId() {

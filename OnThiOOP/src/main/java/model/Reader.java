@@ -21,7 +21,7 @@ public class Reader implements Serializable {
     }
 
     public Reader(int id, String name, String address, String phoneNum) {
-        this.id = id;
+        this.id = ++currentId;
         this.name = name;
         this.address = address;
         this.phoneNum = phoneNum;
@@ -71,4 +71,5 @@ public class Reader implements Serializable {
         return new Object[]{
             id, name, address, phoneNum
         };
+    }
 }
