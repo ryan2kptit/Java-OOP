@@ -21,7 +21,7 @@ public class Book implements Serializable{
         
     }
 
-    public Book(int id, String bookName, String bookAuthor, String bookYear, String bookMajor, int bookAmount) {
+    public Book( String bookName, String bookAuthor, String bookYear, String bookMajor, int bookAmount) {
         this.id = ++currentId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -38,9 +38,6 @@ public class Book implements Serializable{
         Book.currentId = currentId;
     }
 
-    public Book(String bookName, String bookAuthor, String bookMajor, String bookYear, int amount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public int getId() {
         return id;

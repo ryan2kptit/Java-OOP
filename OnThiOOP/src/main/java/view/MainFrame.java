@@ -7,8 +7,8 @@ package view;
 
 import fileIO.FileIO;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Book;
@@ -39,6 +39,10 @@ public class MainFrame extends javax.swing.JFrame {
         tableBook = (DefaultTableModel) table1.getModel();
         tableReader = (DefaultTableModel) table2.getModel();
         
+        loadDataToTable();
+        
+       
+        
         btnAdd1.addActionListener((ActionEvent e) -> {
             String bookName = txtBook.getText();
             String bookAuthor = txtAuthor.getText();
@@ -53,6 +57,11 @@ public class MainFrame extends javax.swing.JFrame {
             
             try {
                 int amount = Integer.parseInt(bookAmount);
+                
+                int pos = listBooks.size() - 1 ;
+                if(pos != -1){
+                    Book.setCurrentId(listBooks.get(pos).getId());
+                }
                 Book book = new Book(bookName, bookAuthor, bookMajor, bookYear, amount);
                 tableBook.addRow(book.toObjects());
                 listBooks.add(book);
@@ -60,6 +69,36 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
+        btnAdd2.addActionListener((ActionEvent  e) -> {
+            String  readerName = txtReaderName.getText();
+            String  readerAddress = txtAdress.getText();
+            String  readerPhoneNum = txtPhoneNum.getText();
+            
+            if(readerName.equals("") || readerAddress.equals("") || readerPhoneNum.equals("")){
+                JOptionPane.showMessageDialog(null, "Nhap thieu thong tin");
+                return;
+            }
+            
+            if(readerPhoneNum.length() < 9 || readerPhoneNum.length()>10){
+                JOptionPane.showMessageDialog(null, "Nhap sai thong tin so dien thoai");
+                return;
+            }
+            
+            try {
+                int pos = listReaders.size() -1 ;
+                if(pos != -1){
+                    Reader.setCurrentId(listReaders.get(pos).getId());
+                }
+                
+                Reader reader = new Reader(readerName, readerAddress, readerPhoneNum);
+                tableReader.addRow(reader.toObjects());
+                listReaders.add(reader);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        });
+        saveToFile(btnSave, listBooks, FILE_BOOK);
+        saveToFile(btnSave2, listReaders, FILE_READER);
     }
     
     private void loadDataToTable()  {
@@ -72,6 +111,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
         listReaders.forEach(r -> {
             tableReader.addRow(r.toObjects());
+        });
+    }
+    
+    private void saveToFile(JButton  btn, ArrayList  list, String  file){
+        btn.addActionListener((ActionEvent e) -> {
+            FileIO.writeToFile(list, file);
+            JOptionPane.showMessageDialog(null, "save sucessfull");
         });
     }
 

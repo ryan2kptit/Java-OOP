@@ -11,16 +11,17 @@ import java.io.Serializable;
  *
  * @author dong
  */
-public class Reader implements Serializable {
+public class KhachHang implements Serializable{
     
     private static int currentId = 9999;
     private int id;
     private String name, address, phoneNum;
-
-    public Reader() {
+    
+    public KhachHang() {
+        
     }
 
-    public Reader( String name, String address, String phoneNum) {
+    public KhachHang(String name, String address, String phoneNum) {
         this.id = ++currentId;
         this.name = name;
         this.address = address;
@@ -32,7 +33,7 @@ public class Reader implements Serializable {
     }
 
     public static void setCurrentId(int currentId) {
-        Reader.currentId = currentId;
+        KhachHang.currentId = currentId;
     }
 
     public int getId() {
@@ -66,10 +67,10 @@ public class Reader implements Serializable {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
-    
     public Object[] toObjects(){
         return new Object[]{
             id, name, address, phoneNum
         };
     }
+    
 }
