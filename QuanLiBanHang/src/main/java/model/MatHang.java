@@ -6,8 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Vector;
 
 /**
  *
@@ -39,12 +37,20 @@ public class MatHang implements Serializable{
         MatHang.currentId = currentId;
     }
 
-    public String getTeHang() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTenHang() {
         return tenHang;
     }
 
-    public void setTeHang(String teHang) {
-        this.tenHang = teHang;
+    public void setTenHang(String tenHang) {
+        this.tenHang = tenHang;
     }
 
     public String getNhomHang() {
@@ -63,21 +69,13 @@ public class MatHang implements Serializable{
         this.giaBan = giaBan;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+   
 
    public Object[] toObjects(){
        return new Object[]{
            id, tenHang, nhomHang, giaBan
        };
    }
-
-   
-    
+ 
     
 }

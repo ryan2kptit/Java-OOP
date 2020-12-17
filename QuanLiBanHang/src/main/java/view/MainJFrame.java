@@ -41,6 +41,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         tableMathang = (DefaultTableModel) jTable1.getModel();
         tableKhachHang = (DefaultTableModel) jTable2.getModel();
+        
         loadDataToTable();
         
         jButton1.addActionListener((ActionEvent e) -> {
@@ -68,11 +69,38 @@ public class MainJFrame extends javax.swing.JFrame {
                 }
                 
         });
+        jButton3.addActionListener((ActionEvent e) -> {
+                String nameKh = txtHoTen.getText();
+                String addressKh = txtDiaChi.getText();
+                String phoneNumKh =txtDT.getText();
+                
+                if(nameKh.equals("") || addressKh.equals("") || phoneNumKh.equals("")){
+                    JOptionPane.showMessageDialog(null, "nhap thieu thong tin");
+                    return;
+                }
+                
+                if(phoneNumKh.length()<9 || phoneNumKh.length()>10){
+                    JOptionPane.showMessageDialog(null, "nhap sai thong tin sdt");
+                    return;
+                }
+                
+                try {
+                    int pos = listKhachHangs.size()-1;
+                    if(pos!=-1){
+                        KhachHang.setCurrentId(listKhachHangs.get(pos).getId());
+                    }
+                    KhachHang khachhang = new KhachHang(nameKh, addressKh, phoneNumKh);
+                    tableKhachHang.addRow(khachhang.toObjects());
+                    listKhachHangs.add(khachhang);
+                }catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+                
+        });
+        
         saveToFile(jButton2, listMatHangs, FILE_MATHANG);
+        saveToFile(jButton4, listKhachHangs, FILE_KHACHHANG);
     }
-//        jButton3.addActionListener((ActionEvent e) -> {
-//            String  
-//        });
 
 
     private void loadDataToTable(){
@@ -118,6 +146,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
@@ -129,7 +158,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,6 +236,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Mat Hang", jPanel1);
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 946, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 783, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("bang danh sach mua hang", jPanel3);
+
         jLabel5.setText("ho ten");
 
         jLabel6.setText("dia chi");
@@ -236,14 +277,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel5)
-                        .addComponent(txtDiaChi)
-                        .addComponent(txtDT)
-                        .addComponent(txtHoTen)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDiaChi)
+                    .addComponent(txtDT)
+                    .addComponent(txtHoTen)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
@@ -263,9 +303,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addComponent(jLabel7)
-                        .addGap(79, 79, 79)
+                        .addGap(64, 64, 64)
                         .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
+                        .addGap(81, 81, 81)
                         .addComponent(jButton3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -276,19 +316,6 @@ public class MainJFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Khach hang", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 946, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 783, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("bang danh sach mua hang", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,11 +361,8 @@ public class MainJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainJFrame().setVisible(true);
-            }
-        });
+       MainJFrame frame = new MainJFrame();
+       frame.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
